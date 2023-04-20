@@ -3,7 +3,7 @@ import { useSignInEmailPassword } from '@nhost/react'
 import { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import Input from './Input';
-import Spinner from './Spinner'
+import Spinner from './Spinner';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');

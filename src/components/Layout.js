@@ -1,6 +1,7 @@
 import styles from '../styles/components/Layout.module.css';
-import { useSignOut, useUserData } from '@nhost/react'
+import { useSignOut, useUserId } from '@nhost/react'
 import { Fragment } from 'react';
+import { gql, useQuery } from '@apollo/client';
 import { Outlet, Link } from 'react-router-dom';
 import { Menu, Transition } from '@headlessui/react';
 import {
@@ -11,9 +12,29 @@ import {
 } from '@heroicons/react/outline';
 import Avatar from './Avatar';
 
+const GET_USER_QUERY = gql`
+  query GetUser($id: uuid!) {
+    user(id: $id){
+      id
+      email
+      displayName
+      metadata
+      avatarUrl
+    }
+  }
+`;
+
 const Layout = () => {
-  const user = useUserData()
-  const { signOut } = useSignOut()
+  const id = useUserId;
+
+  const {loading, error, data} = useQuery(GET_USER_QUERY,{
+    variables: {id},
+    skip: !id
+  });
+
+  const user = data?.user;
+
+  const { signOut } = useSignOut();
 
   const menuItems = [
     {
@@ -91,7 +112,11 @@ const Layout = () => {
 
       <main className={styles.main}>
         <div className={styles['main-container']}>
-          <Outlet context={{ user }} />
+            {error ? (
+              <p>Something went wrong. Try to refresh the page.</p>
+            ) : !loading ? (
+              <Outlet context={{ user }} />
+            ) : null}
         </div>
       </main>
     </div>
