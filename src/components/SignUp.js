@@ -11,8 +11,8 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-    const { signUpEmailPassword, isLoading, isSuccess, needsEmailVerification, isError, error } =
-    useSignUpEmailPassword()
+  const { signUpEmailPassword, isLoading, isSuccess, needsEmailVerification, isError, error } =
+  useSignUpEmailPassword();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();

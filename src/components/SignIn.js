@@ -9,8 +9,8 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-    const { signInEmailPassword, isLoading, isSuccess, needsEmailVerification, isError, error } =
-    useSignInEmailPassword()
+  const { signInEmailPassword, isLoading, isSuccess, needsEmailVerification, isError, error } =
+  useSignInEmailPassword();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
